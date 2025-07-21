@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import './App.css'
 import genesisLogo from './assets/genesis-logo.png'
+import Viewer3D from './components/Viewer3D'
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false)
@@ -87,6 +88,18 @@ function App() {
         </div>
       </div>
     )
+  }
+
+  if (currentView === 'projects') {
+    return <ProjectList user={user} onBack={() => setCurrentView('dashboard')} />
+  }
+
+  if (currentView === 'components') {
+    return <ComponentLibrary onBack={() => setCurrentView('dashboard')} />
+  }
+
+  if (currentView === '3d') {
+    return <Viewer3D onBack={() => setCurrentView('dashboard')} />
   }
 
   if (currentView === 'projects') {
@@ -336,17 +349,19 @@ function App() {
           </div>
 
           {/* 3D Visualization */}
-          <div className="bg-white p-6 rounded-lg border border-gray-200 hover:border-green-300 hover:shadow-md transition-all cursor-pointer opacity-50">
-            <div className="w-12 h-12 bg-gray-100 rounded-lg flex items-center justify-center mb-4">
+          <div 
+            onClick={() => setCurrentView('3d')}
+            className="bg-white p-6 rounded-lg border border-gray-200 hover:border-green-300 hover:shadow-md transition-all cursor-pointer"
+          >
+            <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mb-4">
               <span className="text-2xl">🏗️</span>
             </div>
             <h3 className="text-xl font-semibold text-gray-900 mb-2">
               3D Visualization
             </h3>
             <p className="text-gray-600">
-              View projects in 3D
+              View projects in interactive 3D
             </p>
-            <div className="mt-2 text-xs text-gray-500">Coming Soon</div>
           </div>
 
           {/* Settings */}
